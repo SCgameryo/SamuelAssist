@@ -1,4 +1,4 @@
-name: iOS Build
+﻿name: iOS Build (Samuel Assist)
 
 on:
   workflow_dispatch:
@@ -15,9 +15,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-
-      - name: Setup Expo
-        run: npm install -g expo-cli eas-cli
 
       - name: Install dependencies
         run: npm install
