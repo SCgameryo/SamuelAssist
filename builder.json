@@ -1,0 +1,16 @@
+{
+  "project": "SamuelAssist",
+  "platform": "ios",
+  "github": {
+    "owner": "SCgameryo",
+    "repo": "SamuelAssist"
+  },
+  "ios": {},
+  "flutter": {
+    "watch": {}
+  },
+  "reactNative": {
+    "expo": true
+  },
+  "mobai": {}
+}

@@ -1,0 +1,48 @@
+{
+  "expo": {
+    "name": "Samuel Assist",
+    "slug": "samuelassist",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0c0f1c"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.yourname.samuelassist",
+      "infoPlist": {
+        "UIBackgroundModes": [
+          "audio",
+          "audio"
+        ],
+        "NSMicrophoneUsageDescription": "Samuel Assist needs microphone access to let you hear ambient sound and record safety audio.",
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "plugins": [
+      [
+        "expo-av",
+        {
+          "microphonePermission": "Allow Samuel Assist to access your microphone for ambient hearing and recording."
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "fe735325-95cc-4b35-a0ce-9fdfbf23bad6"
+      }
+    },
+    "android": {
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS"
+      ],
+      "package": "com.Samuel.samuelassist"
+    }
+  }
+}
+
