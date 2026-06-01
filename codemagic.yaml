@@ -1,11 +1,34 @@
 workflows:
   ios-build:
     name: iOS Build
+
     environment:
       node: 20
+      xcode: latest
+
     scripts:
       - npm ci
       - chmod +x node_modules/.bin/expo
-      - npx expo prebuild --platform ios
+
+      - npx expo prebuild --platform ios --non-interactive
+
+      - cd ios && pod install
+
+      - |
+        xcodebuild \
+          -workspace ios/*.xcworkspace \
+          -scheme SamuelAssist \
+          -configuration Release \
+          -sdk iphoneos \
+          -archivePath $CM_BUILD_DIR/SamuelAssist.xcarchive \
+          archive
+
+      - |
+        xcodebuild \
+          -exportArchive \
+          -archivePath $CM_BUILD_DIR/SamuelAssist.xcarchive \
+          -exportPath $CM_BUILD_DIR/build \
+          -allowProvisioningUpdates
+
     artifacts:
-      - ios/build/Build/Products/Release-iphoneos/*.ipa
+      - build/**/*.ipa
