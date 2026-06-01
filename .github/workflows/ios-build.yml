@@ -1,4 +1,4 @@
-name: iOS Build (EAS)
+﻿name: iOS Build (EAS)
 
 on:
   workflow_dispatch:
@@ -16,14 +16,10 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install Expo CLI
-        run: npm install -g eas-cli expo-cli
-
       - name: Install dependencies
         run: npm install
 
-      - name: Login check (debug only)
-        run: npx expo doctor || true
-
-      - name: Build iOS (EAS)
-        run: eas build -p ios --non-interactive --profile preview
+      - name: EAS Build (iOS)
+        run: npx eas-cli build -p ios --non-interactive --profile preview
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
