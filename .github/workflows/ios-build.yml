@@ -1,4 +1,4 @@
-﻿name: iOS Build (Samuel Assist)
+name: iOS Build (Debug)
 
 on:
   workflow_dispatch:
@@ -8,31 +8,40 @@ on:
 jobs:
   build:
     runs-on: macos-latest
+
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
 
       - name: Install dependencies
         run: npm install
 
-      - name: Fix permissions for expo
-        run: chmod +x node_modules/.bin/*
+      - name: Expo prebuild
+        run: npx expo prebuild --platform ios --non-interactive
 
-      - name: Generate iOS native project
-        run: npx expo prebuild --platform ios
+      - name: Show iOS project
+        run: |
+          ls -la
+          ls -la ios || true
 
-      - name: Build IPA
+      - name: List Xcode schemes
         run: |
           cd ios
-          xcodebuild -scheme SamuelAssist -configuration Release -sdk iphoneos -archivePath SamuelAssist.xcarchive archive
-          xcodebuild -exportArchive -archivePath SamuelAssist.xcarchive -exportPath . -exportOptionsPlist exportOptions.plist
+          xcodebuild -list
 
-      - name: Upload IPA
-        uses: actions/upload-artifact@v4
-        with:
-          name: SamuelAssist.ipa
-          path: SamuelAssist.ipa
+      - name: Install CocoaPods
+        run: |
+          cd ios
+          pod install
+
+      - name: Build (verbose)
+        run: |
+          cd ios
+          xcodebuild -workspace *.xcworkspace \
+                     -scheme $(xcodebuild -list | grep -A 20 Schemes | tail -n 1 | xargs) \
+                     -configuration Debug \
+                     -sdk iphonesimulator \
+                     build
