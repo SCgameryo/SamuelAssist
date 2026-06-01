@@ -1,0 +1,12 @@
+workflows:
+  ios-build:
+    name: iOS Build
+    environment:
+      node: 20
+    scripts:
+      - npm install
+      - npx expo prebuild --platform ios
+    artifacts:
+      - ios/build/Build/Products/Release-iphoneos/*.ipa
+    publishing:
+      email: none
