@@ -8,5 +8,3 @@ workflows:
       - npx expo prebuild --platform ios
     artifacts:
       - ios/build/Build/Products/Release-iphoneos/*.ipa
-    publishing:
-      email: none
