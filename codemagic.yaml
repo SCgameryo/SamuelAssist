@@ -4,7 +4,8 @@ workflows:
     environment:
       node: 20
     scripts:
-      - npm install
+      - npm ci
+      - chmod +x node_modules/.bin/expo
       - npx expo prebuild --platform ios
     artifacts:
       - ios/build/Build/Products/Release-iphoneos/*.ipa
